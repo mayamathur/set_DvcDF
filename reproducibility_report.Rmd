@@ -9,7 +9,7 @@ output:
 #### Article ID: DvcDF
 #### Pilot: Sara Altman
 #### Co-pilot: Tom Hardwicke  
-#### Start date: [Insert start date - use US format]
+#### Start date: 04/07/2017
 #### End date: [Insert end date - use US format]   
 
 -------
@@ -165,6 +165,18 @@ kable(t_tests_capped, digits = 2)
 
 The t-value for difficulty is slightly off. As are the degrees of freedom. The Cohen's d values are the same as originally reported, as are the p-values. 
 
+I compare the reported t-value and the calculated t-values for response time:
+
+```{r}
+compareValues(reportedValue = 2.24, obtainedValue = 2.25)
+```
+
+Then the reported and calculated t-values for difficulty:
+
+```{r}
+compareValues(reportedValue = 1.29, obtainedValue = 1.31)
+```
+
 ### Descriptive statistics
 
 The original authors reported the mean and standard deviations of the accuracy measure for both groups:
@@ -182,10 +194,31 @@ accuracy_tibble <-
             sd_accuracy = sd(value*100, na.rm = TRUE)) %>% 
   arrange(desc(group))
 
-knitr::kable(accuracy_tibble, digits = 3)
+knitr::kable(accuracy_tibble, digits = 2)
 ```
 
-The means and standard deviations are slightly off.
+The means and standard deviations are slightly off:
+
+Monolingual means:
+```{r}
+compareValues(reportedValue = 70.98, obtainedValue = 71.29)
+```
+
+Monolingual standard deviations:
+```{r}
+compareValues(reportedValue = 1.06, obtainedValue = 1.07)
+```
+
+Bilingual means:
+```{r}
+compareValues(reportedValue = 70.79, obtainedValue = 71.03)
+```
+
+Bilingual standard deviations:
+```{r}
+compareValues(reportedValue = 1.23, obtainedValue = 1.30)
+```
+
 
 The original authors also calculated the mean dot differences for each group:
 
@@ -205,7 +238,19 @@ dot_diff_tibble <-
 knitr::kable(dot_diff_tibble %>% select(1:2), digits = 2)
 ```
 
-The values reported in the above quote are different from the values reported in Table 3 of the original paper (recreated below). In Table 3, the reported mean for the monolinguals is 4.33 and the reported mean for the bilinguals is 4.64. The mean for the bilinguals that I calculated matches the mean given in Table 3. The mean for the monolinguals that I calculated is .02 below the mean given in Table 3. 
+The values reported in the above quote are different from the values reported in Table 3 of the original paper (recreated below). In Table 3, the reported mean for the monolinguals is 4.33 and the reported mean for the bilinguals is 4.64. The mean for the bilinguals that I calculated matches the mean given in Table 3. The mean for the monolinguals that I calculated is .02 below the mean given in Table 3.
+
+The following compares the monolinguals' mean reported in the text of the paper to the monolinguals' mean I calculated:
+```{r}
+compareValues(reportedValue = 4.31, obtainedValue = 4.64)
+```
+
+The following compares the bilinguals' mean reported in the text of the paper to the bilinguals' mean I calculated:
+```{r}
+compareValues(reportedValue = 4.64, obtainedValue = 4.34)
+```
+
+I will compare my calculated values to the values reported in Table 3 later in this report.
 
 > Addi- tionally, with regards to response time for the confidence judgments there was no difference between the groups: the mono-lingual group took, on average, 1179 ms to respond compared to 1112 ms for the bilinguals.
 
@@ -221,7 +266,11 @@ confidence_tibble <-
 knitr::kable(confidence_tibble %>% select(1:2), digits = 0)
 ```
 
-The monolingual mean matches the reported value. The bilingual mean is off by 1 ms. 
+The monolingual mean matches the reported value. The bilingual mean is off by 1 ms:
+
+```{r}
+compareValues(reportedValue = 1112, obtainedValue = 1111)
+```
 
 The authors then calculate the differences in choice response time between groups:
 
@@ -241,7 +290,12 @@ rt_tibble <-
 knitr::kable(rt_tibble, digits = 0)
 ```
 
-The calculated standard deviations match the standard deviations reported in the original paper. The calculated bilingual mean matches the standard deviations reported in the original paper. However, the calculated monolingual means differs from the mean given in the original paper by 1 ms. 
+The calculated standard deviations match the standard deviations reported in the original paper. The calculated bilingual mean matches the standard deviations reported in the original paper. However, the calculated monolingual means differs from the mean given in the original paper by 1 ms:
+
+```{r}
+compareValues(reportedValue = 3360, obtainedValue = 3359)
+```
+
 
 This code conducts a t-test for the difference in response times between the two groups:
 ```{r}
@@ -261,7 +315,12 @@ tibble_rt <-
 kable(tibble_rt, digits = 2)
 ```
 
-The calculated values all match the reported values, except for the degrees of freedom, which is off by .01. 
+The calculated values all match the reported values, except for the degrees of freedom, which is off by .01:
+
+```{r}
+compareValues(reportedValue = 50.38, obtainedValue = 50.39)
+```
+
 
 ### Inferential statistics
 
