@@ -1,0 +1,6 @@
+Hi Tom,
+I have had a chance to look at this now and I have a theory as to what has happened: One of my colleagues must have uploaded the final version of the data on the cognition website, and rounded the data before doing so. The unrounded participant means seem to correspond to the results reported in the paper. (I attached the non-rounded participantwise means as well as the full trial-by-trial datasets to this email; note that the reason that the trial-by-trial dataset for experiment 2 is called ExclusionData because we excluded one participant for having a strange pattern of confidence responses, as reported in the paper). As for my analysis scripts, different analyses are spread over different files so it might be difficult to follow what I am doing. For my thesis chapter I have cleaned up the code and put it in a single file, but I am not sure that will be useful to you as I have made some changes relative to the article and this is a replication effort?
+
+Please let me know if the original code will be useful to you, in which case I will annotate it a bit better over the weekend and send it over. Also, don't hesitate to contact me if you have any other questions about our analyses.
+
+My best,
