@@ -8,7 +8,7 @@ output:
 
 #### Article ID: DvcDF
 #### Pilot: Sara Altman
-#### Co-pilot: Tom Hardwicke  
+#### Co-pilot: Maya Mathur  
 #### Start date: 04/07/2017
 #### End date: 07/16/2017  
 
@@ -680,7 +680,7 @@ The error bars all appear longer than those in the orginal plot. The response ti
 Many of the reported values differ from my obtained values. The number of errors using the unrounded data supplied by the authors produces fewer errors than the rounded data originally supplied (using rounded data: 31 minor errors, 10 major). There are no decision errors. Many of the minor errors are for degrees of freedom, suggesting that the original authors may have excluded participants, but not reported it. 
 
 ```{r}
-codReport(Report_Type = 'pilot',
+codReport(Report_Type = 'joint',
           Article_ID = 'DvcDF', 
           Insufficient_Information_Errors = 0,
           Decision_Errors = 0, 
