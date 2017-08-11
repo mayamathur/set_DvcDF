@@ -529,17 +529,17 @@ compareValues(reportedValue = .0001, obtainedValue = .0001)
 
 Group: coefficient
 ```{r}
-compareValues(reportedValue = -283, obtainedValue = -282.43)
+compareValues(reportedValue = -283, obtainedValue = -282.43 %>% round(0))
 ```
 
 Group: SE
 ```{r}
-compareValues(reportedValue = 400, obtainedValue = 406.72)
+compareValues(reportedValue = 400, obtainedValue = 406.72 %>% round(0))
 ```
 
 Group: t-value
 ```{r}
-compareValues(reportedValue = -.71, obtainedValue = -0.694)
+compareValues(reportedValue = -.71, obtainedValue = -0.694 %>% round(2))
 ```
 
 Group: DF
@@ -556,56 +556,56 @@ compareValues(reportedValue = .48, obtainedValue = group_KR$stats$p.value)
 
 Block: coefficient
 ```{r}
-compareValues(reportedValue = 19, obtainedValue = 19.25)
+compareValues(reportedValue = 19, obtainedValue = 19.25 %>% round(0))
 ```
 
 Block: SE
 ```{r}
-compareValues(reportedValue = 31, obtainedValue = 31.64)
+compareValues(reportedValue = 31, obtainedValue = 31.64 %>% round(0))
 ```
 
 Block: t-value
 ```{r}
-compareValues(reportedValue = .62, obtainedValue = 0.608)
+compareValues(reportedValue = .62, obtainedValue = 0.608 %>% round(2))
 ```
 
 Block: DF
 ```{r}
 small_mod <- lmer(rt ~ group + (block | id), data = data_tidy2)
 block_KR <- KRmodcomp(mod, small_mod)
-compareValues(reportedValue = 64.03, obtainedValue = block_KR$stats$ddf)
+compareValues(reportedValue = 64.03, obtainedValue = block_KR$stats$ddf %>% round(2))
 ```
 
 Block: p-value
 ```{r}
-compareValues(reportedValue = .54, obtainedValue = block_KR$stats$p.value)
+compareValues(reportedValue = .54, obtainedValue = block_KR$stats$p.value %>% round(2))
 ```
 
 Group*block: coefficient
 ```{r}
-compareValues(reportedValue = -88, obtainedValue = -88.35)
+compareValues(reportedValue = -88, obtainedValue = -88.35 %>% round(2))
 ```
 
 Group*block: SE
 ```{r}
-compareValues(reportedValue = 44, obtainedValue = 44.74)
+compareValues(reportedValue = 44, obtainedValue = 44.74 %>% round(2))
 ```
 
 Group*block: t-value
 ```{r}
-compareValues(reportedValue = -2.01, obtainedValue = -1.975)
+compareValues(reportedValue = -2.01, obtainedValue = -1.975 %>% round(2))
 ```
 
 Group*block: coefficient
 ```{r}
 small_mod <- lmer(rt ~ group + block + (block | id), data = data_tidy2)
 interaction_KR <- KRmodcomp(mod, small_mod)
-compareValues(reportedValue = 64.03, obtainedValue = interaction_KR$stats$ddf)
+compareValues(reportedValue = 64.03, obtainedValue = interaction_KR$stats$ddf %>% round(2))
 ```
 
 Group*block: p-value
 ```{r}
-compareValues(reportedValue = .05, obtainedValue = interaction_KR$stats$p.value)
+compareValues(reportedValue = .05, obtainedValue = interaction_KR$stats$p.value %>% round(2))
 ```
 ![](http://web.stanford.edu/~skaltman/fig3.png)
 
@@ -618,8 +618,8 @@ data_tidy2 <-
   gather(starts_with("rt"), key = "block", value = "rt") %>% 
   mutate(block = str_replace(block, "rt_", ""),
          rt = 1000*rt,
-         group = as.factor(group),
-         group = relevel(group, ref = "Monolingual")) %>% 
+         group = as.factor(group)) %>% 
+        # group = relevel(group, ref = "Monolingual")) %>% 
   left_join(demographics, by = c("id", "group"))
 
 data_tidy2 %>% 
@@ -662,7 +662,7 @@ codReport(Report_Type = 'pilot',
           Insufficient_Information_Errors = 0,
           Decision_Errors = 0, 
           Major_Numerical_Errors = 10, 
-          Minor_Numerical_Errors = 31)
+          Minor_Numerical_Errors = 29)
 ```
 
 [This function will output information about the package versions used in this report:]
