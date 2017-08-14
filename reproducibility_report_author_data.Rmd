@@ -528,12 +528,12 @@ compareValues(reportedValue = 3273, obtainedValue = 3273)
 
 Intercept: SE
 ```{r}
-compareValues(reportedValue = 283, obtainedValue = 287.58)
+compareValues(reportedValue = 283, obtainedValue = 287.58 %>% round(0))
 ```
 
 Intercept: t-value
 ```{r}
-compareValues(reportedValue = 11.57, obtainedValue = 11.382)
+compareValues(reportedValue = 11.57, obtainedValue = 11.382 %>% round(2))
 ```
 
 Intercept: DF
@@ -551,17 +551,17 @@ compareValues(reportedValue = .0001, obtainedValue = .0001)
 
 Group: coefficient
 ```{r}
-compareValues(reportedValue = -283, obtainedValue = -283.11)
+compareValues(reportedValue = -283, obtainedValue = -283.11 %>% round(0))
 ```
 
 Group: SE
 ```{r}
-compareValues(reportedValue = 400, obtainedValue = 406.7)
+compareValues(reportedValue = 400, obtainedValue = 406.7 %>% round(0))
 ```
 
 Group: t-value
 ```{r}
-compareValues(reportedValue = -.71, obtainedValue = -0.7)
+compareValues(reportedValue = -.71, obtainedValue = -0.696 %>% round(2))
 ```
 
 Group: DF
