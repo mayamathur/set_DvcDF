@@ -15,9 +15,9 @@ output:
 -------
 
 #### Methods summary: 
-The experimenters tested sixty-two participants. Half were monolingual and half were bilingual. The experimenters gave the participants working memory and non-verbal reasoning tasks to ensure that the bilingual and monolingual groups were similar in terms of cognitive functioning. Working memory was assessed using the Wechsler Adult Intelligence Scale IV. Non-verbal reasoning was assessed using the Raven's Advanced Progressive Matrices. The experimenter's also checked the English language proficiency of the bilinguals. 
+The experimenters tested sixty-two participants. Half were monolingual and half were bilingual. The experimenters gave the participants working memory and non-verbal reasoning tasks to ensure that the bilingual and monolingual groups were similar in terms of cognitive functioning. Working memory was assessed using the Wechsler Adult Intelligence Scale IV. Non-verbal reasoning was assessed using the Raven's Advanced Progressive Matrices. The experimenters also checked the English language proficiency of the bilinguals. 
 
-To measure metacognitive performance, the experimenters administered a dot discrimination task. In the dot discrimination task, participants were presented with two white circles on a black background. The participants were asked to choose which circle contained the most dots within it's boundary. The differences in dot numbers were modified with a staircase procedure so that accuracy was normalised at 71%. Participants completed 8 blocks of the dot discrimination task, each with 25 trials. 
+To measure metacognitive performance, the experimenters administered a dot discrimination task. In the dot discrimination task, participants were presented with two white circles on a black background. The participants were asked to choose which circle contained the most dots within its boundary. The differences in dot numbers were modified with a staircase procedure so that accuracy was normalised at 71%. Participants completed 8 blocks of the dot discrimination task, each with 25 trials. 
 
 ------
 
@@ -25,7 +25,7 @@ To measure metacognitive performance, the experimenters administered a dot discr
 
 The experimenters conducted a t-test to compare the bilinguals' and monolinguals' choice response time in the dot discrimination task. 
 
-> We compared the bilinguals’ and monolinguals’ performance with regard to their first order accuracy (measured by percentage of correct responses), the difficulty of the trials (measured by dot difference) and response time of the choice and the confidence judgment (both measured in seconds). The results of all these anal- yses are summarised in Table 3.
+> We compared the bilinguals’ and monolinguals’ performance with regard to their first order accuracy (measured by percentage of correct responses), the difficulty of the trials (measured by dot difference) and response time of the choice and the confidence judgment (both measured in seconds). The results of all these analyses are summarised in Table 3.
 The monolingual group had a mean accuracy of 70.98%, with a standard deviation of 1.06%, whilst the bilingual group had mean accuracy of 70.79% with a standard deviation of 1.23%. This indi- cates that the staircase procedure successfully standardised accu- racy across participants. There were no significant group differences with regard to trial difficulty, with a mean dot differ- ence of 4.64 for the monolinguals and 4.34 for the bilinguals. Addi- tionally, with regards to response time for the confidence judgments there was no difference between the groups: the mono-lingual group took, on average, 1179 ms to respond compared to 1112 ms for the bilinguals.
 However, the groups did differ with regards to choice response time; an independent samples t-test showed that bilinguals (M = 2679 ms, SD = 923 ms) were significantly faster than mono- linguals (M = 3360 ms, SD = 1475 ms, t(50.38) =  2.18, p = .03, d = 0.55). A random slopes multilevel model (MLM) revealed that this relationship was significantly mediated by block (see Fig. 3; for more detailed information about the MLM fitting see Appendix A). Monolinguals were set to be the reference category for this analysis and all subsequent MLMs. The model tells us that the main-effect of group became statistically non-significant when the block-group interaction was accounted for (b = 283.11, t (64.03) = 0.71, p = 0.48). The main effect of block was also non- significant (b = 19.23, t(64.03) = 0.61, p = 0.54), meaning that the response speed of the monolinguals did not change significantly over time, when individual variation in intercepts and slopes were accounted for. The bilingual group ⁄ block interaction was signifi- cant (b =  88, t(64.03) =  2.01, p = .05), meaning that bilinguals, as a group, became faster as the task progressed.
 Two participants in the monolingual group displayed outlying values for one variable (difficulty and response time, respectively). In order to ensure that these outliers did not unduly influence the group-wise comparisons they were both capped at 3 standard deviations above the group mean. Capping these values did not change the results for difficulty (t(59.78) = 1.29, p = .20, d = 0.33) or for response time (t(55.17) = 2.24, p = .03, d = 0.57).
@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ## Step 1: Load packages
 
-[Some useful packages are being loaded below. You can add any additional ones you might need too.]
+[Some useful packages are being loaded below. You can add any additional ones you might need to.]
 
 ```{r}
 library(tidyverse) # for data munging
@@ -54,11 +54,13 @@ library(lme4)
 library(stringr)
 library(pbkrtest)
 
-data_file <- "~/GitHub/skaltman/set_DvcDF/data/data.xlsx"
+# temporary - change path later
+data_file <- "~/Dropbox/Personal computer/Independent studies/Mike's Cognition project on data sharing policy/Co-piloting/Copilot #4/set_DvcDF/data/data.xlsx"
+#data_file <- "data/data.xlsx"
 
 #new data files
-full_data_file <- "~/GitHub/skaltman/set_DvcDF/From author (2017-7-28)/FullData_Exp1.csv"
-part_data_file <- "~/GitHub/skaltman/set_DvcDF/From author (2017-7-28)/ParticipantData_Exp1.csv"
+full_data_file <- "From author (2017-7-28)/FullData_Exp1.csv"
+part_data_file <- "From author (2017-7-28)/ParticipantData_Exp1.csv"
  
 rename_all <- function(df, fun){ 
   setNames(df, fun(names(df))) 
@@ -68,95 +70,46 @@ rename_all <- function(df, fun){
 ## Step 2: Load data
 
 ```{r}
-# column_names <- c("id", 
-#                   "group", 
-#                   "first_accuracy", 
-#                   "first_rt",
-#                   "first_dot_diff",
-#                   "second_confidence",
-#                   "second_mratio",
-#                   "mratio_1",
-#                   "mratio_2",
-#                   "rt_1",
-#                   "rt_2",
-#                   "rt_3",
-#                   "rt_4",
-#                   "rt_5",
-#                   "rt_6",
-#                   "rt_7",
-#                   "rt_8")
-# 
-# 
-# 
-# #I recalculated the average reaction times because the ones given were rounded                                                        
-# data <- read_excel(data_file, sheet = 2, skip = 2, col_names = column_names) %>% 
-#   mutate(first_rt = (rt_1 + rt_2 + rt_3 + rt_4 + rt_5 + rt_6 + rt_7 + rt_8)/8) 
-# data %>% select(contains("rt"))
-# data %>% select(second_confidence, id)
-# 
-# demographics <- 
-#   read_excel(data_file, sheet = 1) %>% 
-#   rename_all(tolower) %>% 
-#   rename(id = `participant id`) %>% 
-#   filter(!is.na(id))
+column_names <- c("id", 
+                  "group", 
+                  "first_accuracy", 
+                  "first_rt",
+                  "first_dot_diff",
+                  "second_confidence",
+                  "second_mratio",
+                  "mratio_1",
+                  "mratio_2",
+                  "rt_1",
+                  "rt_2",
+                  "rt_3",
+                  "rt_4",
+                  "rt_5",
+                  "rt_6",
+                  "rt_7",
+                  "rt_8")
 
-#with new data
 
-#full data
-full_data <- read_csv(full_data_file)
+#I recalculated the average reaction times because the ones given were rounded                                                        
+data <- read_excel(data_file, sheet = 2, skip = 2, col_names = column_names) %>% 
+  mutate(first_rt = (rt_1 + rt_2 + rt_3 + rt_4 + rt_5 + rt_6 + rt_7 + rt_8)/8) 
 
-#data by participant
-part_data <- 
-  read_csv(part_data_file) %>% 
-  select(id = Participant,
-         group = Group,
-         first_accuracy = Correct,
-         first_rt = RT,
-         first_dot_diff = DotDifference,
-         second_confidence = ConfidenceRT)
-
-#to get mean reaction times by block and participants
-rt_by_block <-
-  full_data %>% 
-  mutate(RT = RT/1000000000) %>% 
-  group_by(Participant, Block) %>% 
-  summarise(mean_rt = mean(RT)) %>% 
-  rename(rt = Block) %>% 
-  spread(key = rt, value = mean_rt, sep = "_")
-
-#join with data about rt for each block to get all data needed for analysis
-new_data <-
-  part_data %>% 
-  left_join(rt_by_block, by = c("id" = "Participant"))
+demographics <- 
+  read_excel(data_file, sheet = 1) %>% 
+  rename_all(tolower) %>% 
+  rename(id = `participant id`) %>% 
+  filter(!is.na(id))
 ```
+
 
 ## Step 3: Tidy data
 
 ```{r}
-# data_tidy <-
-#   data %>% 
-#   group_by(id) %>% 
-#   gather(key = "measure", value = "value", first_accuracy:rt_8)
-
+# long format
 data_tidy <-
-  new_data %>% 
+  data %>% 
   group_by(id) %>% 
   gather(key = "measure", value = "value", first_accuracy:rt_8)
 ```
-
-Check if the numbers supplied in the by-participant data match calculated numbers from full data:
-```{r}
-#check if grouping the full data gets you the same data set as the supplied by-participant data
-full_data %>% 
-  group_by(Participant) %>% 
-  summarise_at(vars(Correct, RT, DotDifference, IJT), mean) %>% 
-  mutate(RT = RT / 1e9) %>% 
-  arrange(Participant) %>% 
-  cbind(new_data %>% arrange(id)) %>% 
-  filter(Correct != first_accuracy | !all.equal(RT, first_rt) | DotDifference != first_dot_diff | !all.equal(IJT/1e9, second_confidence))
-```
-
-The values are the same, so we can use the by-participant data. 
 
 ## Step 4: Run analysis
 
@@ -167,50 +120,44 @@ The values are the same, so we can use the by-participant data.
 The following code chunk confirms that there are two participants in the monolingual group with outlying values for one variable (difficulty and response time).
 
 ```{r}
-mean_diff = mean(new_data$first_dot_diff, na.rm = TRUE)
-sd_diff = sd(new_data$first_dot_diff, na.rm = TRUE)
-mean_rt = mean(new_data$first_rt, na.rm = TRUE)
-sd_rt = sd(new_data$first_rt, na.rm = TRUE)
+mean_diff = mean(data$first_dot_diff, na.rm = TRUE)
+sd_diff = sd(data$first_dot_diff, na.rm = TRUE)
+mean_rt = mean(data$first_rt, na.rm = TRUE)
+sd_rt = sd(data$first_rt, na.rm = TRUE)
 
 data_tidy %>% 
   spread(key = measure, value = value) %>% 
-  filter(first_dot_diff > mean_diff + 3*sd_diff)
-
-data_tidy %>% 
-  spread(key = measure, value = value) %>%  
-  filter(first_rt > mean_rt + 3*sd_rt)
+  filter(first_dot_diff > mean_diff + 3*sd_diff | first_rt > mean_rt + 3*sd_rt)
 ```
 
 This code chunk caps the values as specified in the original paper and performs the t-test:
 
 ```{r}
 data_tidy_capped <-
-  data_tidy %>%
-  spread(key = measure, value = value) %>%
-  mutate(first_dot_diff = ifelse(first_dot_diff > mean_diff + 3*sd_diff,
-                                 mean_diff + 3*sd_diff,
+  data_tidy %>% 
+  spread(key = measure, value = value) %>% 
+  mutate(first_dot_diff = ifelse(first_dot_diff > mean_diff + 3*sd_diff, 
+                                 mean_diff + 3*sd_diff, 
                                  first_dot_diff),
-         first_rt = ifelse(first_rt > mean_rt + 3*sd_rt,
-                                 mean_rt + 3*sd_rt,
+         first_rt = ifelse(first_rt > mean_rt + 3*sd_rt, 
+                                 mean_rt + 3*sd_rt, 
                                  first_rt))
 
-
-
-monolingual_capped <-
-  data_tidy_capped %>%
+monolingual_capped <- 
+  data_tidy_capped %>% 
   filter(group == "Monolingual")
 
-bilingual_capped <-
-  data_tidy_capped %>%
+bilingual_capped <- 
+  data_tidy_capped %>% 
   filter(group == "Bilingual")
 
-t_test_rt_capped <- t.test(x = monolingual_capped$first_rt,
+t_test_rt_capped <- t.test(x = monolingual_capped$first_rt, 
                            y = bilingual_capped$first_rt)
-d_rt_capped <- cohensD(x = monolingual_capped$first_rt,
+d_rt_capped <- cohensD(x = monolingual_capped$first_rt, 
                        y = bilingual_capped$first_rt)
-t_test_diff_capped <- t.test(x = monolingual_capped$first_dot_diff,
+t_test_diff_capped <- t.test(x = monolingual_capped$first_dot_diff, 
                              y = bilingual_capped$first_dot_diff)
-d_diff_capped <- cohensD(x = monolingual_capped$first_dot_diff,
+d_diff_capped <- cohensD(x = monolingual_capped$first_dot_diff, 
                          y = bilingual_capped$first_dot_diff)
 
 t_tests_capped <-
@@ -225,44 +172,24 @@ t_tests_capped <-
 kable(t_tests_capped, digits = 2)
 ```
 
-The t-values for response time and difficulty, the degrees of freedom for response time and difficulty, the p-value for difficulty, and the Cohen's d for difficulty differ from the ones cited in the paper. 
+The t-value for difficulty is slightly off. As are the degrees of freedom. The Cohen's d values are the same as originally reported, as are the p-values. 
 
 I compare the reported t-value and the calculated t-values for response time:
+
 ```{r}
 compareValues(reportedValue = 2.24, obtainedValue = 2.25)
 ```
 
 Then the reported and calculated t-values for difficulty:
-```{r}
-compareValues(reportedValue = 1.29, obtainedValue = 1.27)
-```
 
-DF for response time:
 ```{r}
-compareValues(reportedValue = 55.17, obtainedValue = 57.42)
+compareValues(reportedValue = 1.29, obtainedValue = 1.31)
 ```
-
-DF for difficulty:
-```{r}
-compareValues(reportedValue = 59.78, obtainedValue = 59.85)
-```
-
-p-value for difficulty:
-```{r}
-compareValues(reportedValue = .20, obtainedValue = .21, isP = TRUE)
-```
-
-Cohen's d for difficulty:
-```{r}
-compareValues(reportedValue = .33, obtainedValue = .32)
-```
-
-Using the unrounded data for this section produces more errors than using the rounded data. Perhaps the authors used the rounded data for this section. I also used the full data to check if there was a difference. The results were the same.
 
 ### Descriptive statistics
 Table 3 from the original paper provides all descriptive statistics computed.
 
-> There were no significant group differences with regard to trial difficulty, with a mean dot differ- ence of 4.64 for the monolinguals and 4.34 for the bilinguals.
+> here were no significant group differences with regard to trial difficulty, with a mean dot differ- ence of 4.64 for the monolinguals and 4.34 for the bilinguals.
 
 However, the table says the mean dot difference for monolinguals is 4.33, and the mean dot difference for bilinguals is 4.64.  
 
@@ -329,10 +256,10 @@ t_test_accuracy = t.test(x = data_tidy %>%
                              .$value)
 
 t_test_difficulty = t.test(x = data_tidy %>% 
-                             filter(group == "Bilingual", measure == "first_dot_diff") %>% 
+                             filter(group == "Monolingual", measure == "first_dot_diff") %>% 
                              .$value,
                          y = data_tidy %>% 
-                             filter(group == "Monolingual", measure == "first_dot_diff") %>% 
+                             filter(group == "Bilingual", measure == "first_dot_diff") %>% 
                              .$value)
 
 t_test_confidence = t.test(x = data_tidy %>% 
@@ -405,7 +332,7 @@ summary_tibble <-
          `Cohen's d` = c(cohens_d_accuracy, cohens_d_difficulty, 
                          cohens_d_confidence, cohens_d_rt))
 
-kable(summary_tibble, digits = 2)
+kable(summary_tibble, digit = 2)
 ```
 
 All values provided in the orginal table match those provided in the text of the original paper, except for the following exceptions:
@@ -425,55 +352,120 @@ All values provided in the orginal table match those provided in the text of the
 For these discrepancies, I will compare my obtained values to those in the table and in the text. 
 
 #### Accuracy
-All accuracy measures matched. 
+Accuracy mean for monolinguals:
+```{r}
+compareValues(reportedValue = 70.98, obtainedValue = 71.29)
+```
 
-#### Difficulty
-Mean difficulty for monolinguals:
+Accuracy standard deviation for monolinguals:
+```{r}
+compareValues(reportedValue = 1.06, obtainedValue = 1.07)
+```
+
+Accuracy mean for bilinguals:
+```{r}
+compareValues(reportedValue = 70.79, obtainedValue = 71.03)
+```
+
+Accuracy standard deviation for bilinguals:
+```{r}
+compareValues(reportedValue = 1.23, obtainedValue = 1.30)
+```
+
+Accuracy t-statistic
+```{r}
+compareValues(reportedValue = .66, obtainedValue = .85)
+```
+
+Accuracy df
+```{r}
+compareValues(reportedValue = 58.73, obtainedValue = 57.82)
+```
+
+Accuracy p-value
+```{r}
+compareValues(reportedValue = .51, obtainedValue = .4, isP = TRUE)
+```
+
+Accuracy Cohen's d
+```{r}
+compareValues(reportedValue = .17, obtainedValue = .22)
+```
+
+#### Dot difference
+Mean dot difference for monolinguals:
 ```{r}
 #in text
-compareValues(reportedValue = 4.64, obtainedValue = summary_tibble[2, 2] %>% round(2))
+compareValues(reportedValue = 4.64, obtainedValue = 4.31)
 
 #in table
-compareValues(reportedValue = 4.33, obtainedValue = summary_tibble[2, 2] %>% round(2))
+compareValues(reportedValue = 4.33, obtainedValue = 4.31)
 ```
 
-Mean difficulty for bilinguals:
+Mean dot difference for bilinguals:
 ```{r}
 #in text
-compareValues(reportedValue = 4.34, obtainedValue = summary_tibble[2, 4] %>% round(2))
+compareValues(reportedValue = 4.34, obtainedValue = 4.64)
 
-#the value from the original table is a match
-compareValues(reportedValue = 4.64, obtainedValue = summary_tibble[2, 4] %>% round(2))
+#in table
+compareValues(reportedValue = 4.64, obtainedValue = 4.64)
 ```
 
-difficulty t-statistic
+Dot diff t-statistic
 ```{r}
-compareValues(reportedValue = 1.25, obtainedValue = summary_tibble[2, 6])
+compareValues(reportedValue = 1.25, obtainedValue = 1.29)
+```
+
+Dot diff df
+```{r}
+compareValues(reportedValue = 59.9, obtainedValue = 59.78)
 ```
 
 Dot diff p-value
 ```{r}
-compareValues(reportedValue = .26, obtainedValue = summary_tibble[2, 8] %>% round(2), isP = TRUE)
+compareValues(reportedValue = .26, obtainedValue = .2, isP = TRUE)
 ```
 
+Dot diff Cohen's d
+```{r}
+compareValues(reportedValue = .29, obtainedValue = .33)
+```
 
 #### Confidence response time
+Mean confidence response time for bilinguals:
+```{r}
+compareValues(reportedValue = 1112, obtainedValue = 1111)
+```
 
 SD of confidence response time for bilinguals:
 ```{r}
-compareValues(reportedValue = 280, obtainedValue = summary_tibble[3, 5] %>% round(0)) 
+compareValues(reportedValue = 280, obtainedValue = 176)
+```
+
+Confidence response time t-statistic
+```{r}
+compareValues(reportedValue = .89, obtainedValue = .90)
 ```
 
 Confidence response time df
 ```{r}
-compareValues(reportedValue = 58.77, obtainedValue = summary_tibble[3, 7] %>% round(2))
+compareValues(reportedValue = 58.77, obtainedValue = 58.80)
 ```
 
 #### Choice response time
+Mean choice response time for monolinguals:
+```{r}
+compareValues(reportedValue = 3360, obtainedValue = 3359)
+```
 
 Choice response time sd for bilinguals
 ```{r}
-compareValues(reportedValue = 922, obtainedValue = summary_tibble[4, 5] %>% round(0))
+compareValues(reportedValue = 922, obtainedValue = 923)
+```
+
+Degrees of freedom for choice response time:
+```{r}
+compareValues(reportedValue = 50.38, obtainedValue = 50.39)
 ```
 
 
@@ -490,6 +482,7 @@ More details about the model were provided in Appendix A:
 ![](http://web.stanford.edu/~skaltman/table_mixedeffects.png)
 
 The following code chunk fits the specified model:
+
 ```{r}
 data_tidy2 <-
   data_tidy %>% 
@@ -497,146 +490,143 @@ data_tidy2 <-
   gather(starts_with("rt"), key = "block", value = "rt") %>% 
   mutate(block = as.numeric(str_replace(block, "rt_", "")),
          rt = 1000*rt) %>% 
-  #left_join(demographics, by = c("id", "group")) %>%
+  left_join(demographics, by = c("id", "group")) %>%
   mutate(group = factor(group, levels = c("Monolingual","Bilingual")))
 
-mod <- lmer(rt ~ group + block*group + (block | id), 
-            data = data_tidy2) 
+# this is the model that we had fit prior to discussion with author
+# mod <- lmer(rt ~ group + block*group + (block | id), data = data_tidy2)
+# summary(mod)
+
+
+# after discussing with authors, attempt using ML instead of REML 
+# and using L-BFGS-B constrained optimization
+
+# having problems with optimx package that allows L-BFGS-B
+# see: https://www.rdocumentation.org/packages/lme4/versions/1.1-13/topics/lmerControl
+# library(optimx)
+# mod <- lmer( rt ~ group + block*group + (block | id), data = data_tidy2,
+#                          control = lmerControl(optimizer= "optimx",
+#                         optCtrl  = list(method="L-BFGS-B", maxfun=1000000)),
+#                         REML = FALSE )
+# DOES NOT CONVERGE REGARDLESS OF ITERATIONS
+
+# try with ML instead of REML, but not using L-BFGS-B 
+library(lmerTest)  # for inference
+mod <- lmer( rt ~ group + block*group + (block | id), data = data_tidy2,
+                        REML = FALSE )
 summary(mod)
 
 
-#with full data
-#mod_full <- lmer(RT ~ Group + Block*Group + (Block | Participant), 
-                # data = full_data %>% mutate(RT = RT / 1e6))
-#summary(mod_full)
 ```
 
 Compares calculated participant intercept variance to reported value:
 ```{r}
-compareValues(reportedValue = 2380701, obtainedValue = 2356986)
+compareValues(reportedValue = 2380701, obtainedValue = 2274757)
 ```
 
 Compares calculated variance of block random effect to reported value:
 ```{r}
-compareValues(reportedValue = 26127, obtainedValue = 22930)
+compareValues(reportedValue = 26127, obtainedValue = 21928)
 ```
 
 Intercept: coefficient
 ```{r}
-compareValues(reportedValue = 3273, obtainedValue = 3273)
+compareValues(reportedValue = 3273, obtainedValue = 3272.74)
 ```
 
 Intercept: SE
 ```{r}
-compareValues(reportedValue = 283, obtainedValue = 287.58 %>% round(0))
+compareValues(reportedValue = 283, obtainedValue = 282.92)
 ```
 
 Intercept: t-value
 ```{r}
-compareValues(reportedValue = 11.57, obtainedValue = 11.382 %>% round(2))
+compareValues(reportedValue = 11.57, obtainedValue = 11.568)
 ```
 
 Intercept: DF
 ```{r, warning=FALSE, message = FALSE}
-#calculated df, p value for intercept
-afex::mixed(rt ~ group + block*group + (block | id), 
-            test_intercept = TRUE, method = "KR", data = data_tidy2)
-compareValues(reportedValue = 64.03, obtainedValue = 82.12)
+compareValues(reportedValue = 64.03, obtainedValue = 62.00)
 ```
 
 Intercept: p-value
 ```{r}
-compareValues(reportedValue = .0001, obtainedValue = .0001)
+compareValues(reportedValue = .0001, obtainedValue = 0.0000000000000002)
 ```
 
 Group: coefficient
 ```{r}
-compareValues(reportedValue = -283, obtainedValue = -283.11 %>% round(0))
+compareValues(reportedValue = -283, obtainedValue = -282.43)
 ```
 
 Group: SE
 ```{r}
-compareValues(reportedValue = 400, obtainedValue = 406.7 %>% round(0))
+compareValues(reportedValue = 400, obtainedValue = 400.11)
 ```
 
 Group: t-value
 ```{r}
-compareValues(reportedValue = -.71, obtainedValue = -0.696 %>% round(2))
+compareValues(reportedValue = -.71, obtainedValue = -0.706)
 ```
 
 Group: DF
 ```{r}
-small_mod <- update(mod, .~. - group)
-group_KR <- KRmodcomp(mod, small_mod)
-compareValues(reportedValue = 64.03, obtainedValue = group_KR$stats$ddf %>% round(2))
+compareValues(reportedValue = 64.03, obtainedValue = 62.00)
 ```
 
 Group: p-value
 ```{r}
-
-compareValues(reportedValue = .48, 
-              obtainedValue = group_KR$stats$p.value %>% round(2), 
-              isP = TRUE)
+compareValues(reportedValue = .48, obtainedValue = 0.4829)
 ```
 
 Block: coefficient
 ```{r}
-compareValues(reportedValue = 19, obtainedValue = 19)
+compareValues(reportedValue = 19, obtainedValue = 19.25)
 ```
 
 Block: SE
 ```{r}
-compareValues(reportedValue = 31, obtainedValue = 32)
+compareValues(reportedValue = 31, obtainedValue = 31.12)
 ```
 
 Block: t-value
 ```{r}
-compareValues(reportedValue = .62, obtainedValue = 0.61)
+compareValues(reportedValue = .62, obtainedValue = 0.618)
 ```
 
 Block: DF
 ```{r}
-small_mod <- lmer(rt ~ group + (block | id), data = data_tidy2)
-block_KR <- KRmodcomp(mod, small_mod)
-compareValues(reportedValue = 64.03, 
-              obtainedValue = block_KR$stats$ddf %>% round(2))
+compareValues(reportedValue = 64.03, obtainedValue = 62.00)
 ```
 
 Block: p-value
 ```{r}
-compareValues(reportedValue = .54, 
-              obtainedValue = block_KR$stats$p.value %>% round(2), 
-              isP = TRUE)
+compareValues(reportedValue = .54, obtainedValue = 0.5386)
 ```
 
 Group*block: coefficient
 ```{r}
-compareValues(reportedValue = -88, obtainedValue = -88)
+compareValues(reportedValue = -88, obtainedValue = -88.35)
 ```
 
 Group*block: SE
 ```{r}
-compareValues(reportedValue = 44, obtainedValue = 45)
+compareValues(reportedValue = 44, obtainedValue = 44.02)
 ```
 
 Group*block: t-value
 ```{r}
-compareValues(reportedValue = -2.01, obtainedValue = -1.98)
+compareValues(reportedValue = -2.01, obtainedValue = -2.007)
 ```
 
-Group*block: df
+Group*block: DF
 ```{r}
-small_mod <- lmer(rt ~ group + block + (block | id), data = data_tidy2)
-interaction_KR <- KRmodcomp(mod, small_mod)
-compareValues(reportedValue = 64.03, 
-              obtainedValue = interaction_KR$stats$ddf %>% round(2))
+compareValues(reportedValue = 64.03, obtainedValue = 62.00)
 ```
 
 Group*block: p-value
 ```{r}
-compareValues(reportedValue = .05, 
-              obtainedValue = interaction_KR$stats$p.value %>% round(2),
-              isP = TRUE)
+compareValues(reportedValue = .05, obtainedValue = 0.0491)
 ```
 ![](http://web.stanford.edu/~skaltman/fig3.png)
 
@@ -648,9 +638,10 @@ data_tidy2 <-
   spread(key = measure, value = value) %>% 
   gather(starts_with("rt"), key = "block", value = "rt") %>% 
   mutate(block = str_replace(block, "rt_", ""),
-         rt = 1000*rt)#,
-         #group = as.factor(group),
-         #group = relevel(group, ref = "Monolingual")) 
+         rt = 1000*rt,
+         group = as.factor(group),
+         group = relevel(group, ref = "Monolingual")) %>% 
+  left_join(demographics, by = c("id", "group"))
 
 data_tidy2 %>% 
   mutate(group = factor(group, levels = c("Monolingual", 
@@ -670,22 +661,38 @@ data_tidy2 %>%
   scale_y_continuous(breaks = seq(2200, 4000, 200)) +
   scale_color_manual(values = c("#315a9b", "#2b8c3d")) +
   labs(x = "Block",
-       y = "Response Time (ms)")
+       y = "Response Time (ms)") +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.background = element_blank(),
+        axis.line.x = element_line(),
+        axis.ticks = element_blank()) 
 ```
 
 The error bars all appear longer than those in the orginal plot. The response time means for each block appear similar. 
 
+
+#### Methods summary: 
+
+
+
+
+
 ## Step 5: Conclusion
 
-Many of the reported values differ from my obtained values. The number of errors using the unrounded data supplied by the authors produces fewer errors than the rounded data originally supplied (using rounded data: 31 minor errors, 10 major). There are no decision errors. Many of the minor errors are for degrees of freedom, suggesting that the original authors may have excluded participants, but not reported it. 
+Many of the reported values differ from my obtained values. Possibly the original authors excluded participants but did not report which ones. There were 10 major numerical errors. Only one of these major numerical errors involved a p-value (the p-value on block significance in the mixed effect model). The p-value I calculated was much lower than the reported p-value. There were 31 minor numerical errors. 
+
+Lastly, we note that the article repeatedly refers to interaction as "mediation." These are completely distinct concepts.
 
 ```{r}
 codReport(Report_Type = 'joint',
           Article_ID = 'DvcDF', 
           Insufficient_Information_Errors = 0,
           Decision_Errors = 0, 
-          Major_Numerical_Errors = 5, 
-          Minor_Numerical_Errors = 23)
+          Major_Numerical_Errors = 10, 
+          Minor_Numerical_Errors = 31)
 ```
 
 [This function will output information about the package versions used in this report:]
