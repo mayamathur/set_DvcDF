@@ -674,15 +674,12 @@ data_tidy2 %>%
 The error bars all appear longer than those in the orginal plot. The response time means for each block appear similar. 
 
 
-#### Methods summary: 
-
-
-
-
 
 ## Step 5: Conclusion
 
-Many of the reported values differ from my obtained values. Possibly the original authors excluded participants but did not report which ones. There were 10 major numerical errors. Only one of these major numerical errors involved a p-value (the p-value on block significance in the mixed effect model). The p-value I calculated was much lower than the reported p-value. There were 31 minor numerical errors. 
+Our initial attempt to reproduce analyses without the author's help led to many discrepancies. In our first contact with the author, he found that the wrong data file had been uploaded and provided the correct one (the differences were due to substantial amounts of rounding). When we used this file, some discrepancies were resolved (or became minor rather than major numerical errors), but many remained. Therefore, we contacted the author again. In our second contact, he reanalyzed the data himself and found numerous typos. We tried to reproduce his new results using additional details about these analyses with mixed success. Also, in some cases, he found no discrepancies with the published results even in cases in which we could not reproduce results. 
+
+Ultimately, because there are clearly (per the author) both major and minor numerical errors in the article, we not pursue finding the ultimate reasons for remaining discrepancies. 
 
 Lastly, we note that the article repeatedly refers to interaction as "mediation." These are completely distinct concepts.
 
